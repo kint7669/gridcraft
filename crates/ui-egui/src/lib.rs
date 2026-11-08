@@ -105,6 +105,9 @@ pub struct UiState {
     /// AutoSave (the title-bar switch): save saved-to-file .xlsx workbooks shortly after every
     /// change. A preference like the rest of this struct — it stays on across restarts (#1901).
     pub autosave: bool,
+    /// Check for a newer release when the desktop app starts (File ▸ Options ▸ General).
+    /// The Help ▸ Check for Updates… command is independent of this preference.
+    pub check_updates: bool,
     pub recent: Vec<String>,
     /// One-shot keytip request for a ribbon control: set when a keytip action resolves to
     /// [`keytips::Action::Control`], consumed (and cleared) by the control's render site.
@@ -155,6 +158,7 @@ impl Default for UiState {
             autocomplete: true,
             highlight_active_row: false,
             autosave: false,
+            check_updates: false,
             recent: vec![],
             keytip_invoke: None,
             keytip_invoke_next: None,
