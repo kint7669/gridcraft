@@ -1217,6 +1217,7 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "— VBA project (preserved, not run)" => "— VBA 工程(已保留，未运行)",
         "— {steps} steps" => "— {steps} 步",
         "€ Euro" => "€ 欧元",
+        "Check for updates at startup" => "启动时检查更新",
         _ => return None,
     })
 }
