@@ -26,10 +26,11 @@ impl Default for Runtime {
 }
 
 /// Ask for a check; the next frame's `tick` starts it. A manual one reports every outcome.
+/// The startup check only runs when the "Check for updates at startup" preference is on.
 pub(crate) fn start(app: &mut SheetApp, manual: bool) {
     if manual {
         app.updates_rt.manual = true;
-    } else {
+    } else if app.ui.check_updates {
         app.updates_rt.startup = true;
     }
 }
@@ -39,7 +40,7 @@ pub(crate) fn tick(app: &mut SheetApp, ctx: &egui::Context) {
     if std::mem::take(&mut rt.manual) {
         rt.updater.check_now(ctx);
         rt.result_open = true;
-    } else if rt.startup {
+    } else if rt.startup && app.ui.check_updates {
         rt.updater.check_at_start(ctx);
     }
     rt.updater.tick(ctx);
