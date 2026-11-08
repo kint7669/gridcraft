@@ -19,6 +19,11 @@ pub(super) fn options(app: &mut SheetApp, ui: &mut Ui) {
     if ui.checkbox(&mut highlight_row, lang.tr("Highlight the active cell's row")).changed() {
         app.run_or_alert("options.highlightActiveRow", json!({"on": highlight_row}));
     }
+    // A plain preference: saved with ui.json on exit, read before the first frame's update tick.
+    let mut check_updates = app.ui.check_updates;
+    if ui.checkbox(&mut check_updates, lang.tr("Check for updates at startup")).changed() {
+        app.ui.check_updates = check_updates;
+    }
     ui.add_space(18.0);
     section(ui, lang, "Options|Editing");
     let mut autocomplete = app.ui.autocomplete;
